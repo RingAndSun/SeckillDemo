@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="comment/tag.jsp"%>
+<%@ include file="comment/tag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
     <title>秒杀列表页</title>
-    <%@include file="comment/head.jsp"%>
+    <%@ include file="comment/head.jsp"%>
 </head>
 <body>
     <div class="container">

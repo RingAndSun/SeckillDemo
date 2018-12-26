@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.seckill.dao.StudentDao">
+    <insert id="addStudent" parameterType="Student">
+        insert ignore into student(name,gender,age)
+        values (#{name},#{gender},#{age})
+    </insert>
+    <delete id="reduceStudent">
+        delete from student
+        where stu_id=#{stuId}
+    </delete>
+    <update id="updateStudent" parameterType="Student">
+        <if test="stuId!=null and stuId!=''">
+            update
+              student
+            <set>
+                <if test="name!=null and name!=''">
+                    name=#{name},
+                </if>
+                <if test="age!=null and age!=''">
+                    age=#{age},
+                </if>
+                <if test="gender!=null and gender!=''">
+                    gender=#{gender},
+                </if>
+            </set>
+            where stu_id=#{stuId}
+        </if>
+    </update>
+    <select id="selectStudents" parameterType="Student" resultType="Student">
+        select
+        stu_id,
+        name,
+        gender,
+        age,
+        create_time
+        from student
+        <where>
+            <if test="stuId!=null and stuId!=''">
+                and stu_id= #{stuId}
+            </if>
+            <if test="name!=null and name!=''">
+                and name like "%"#{name}"%"
+            </if>
+            <if test="gender!=null and gender!=''">
+                and gender= #{gender}
+            </if>
+            <if test="age!=null and age!=''">
+                and age= #{age}
+            </if>
+            <if test="age!=null and age!=''">
+                and age= #{age}
+            </if>
+        </where>
+    </select>
+</mapper>

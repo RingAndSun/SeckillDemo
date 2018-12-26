@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.seckill.dao.TeacherDao">
+    <insert id="addTeacher" parameterType="Teacher">
+        insert ignore into teacher(name,gender,age)
+        values (#{name},#{gender},#{age})
+    </insert>
+    <delete id="reduceTeacher">
+        delete from teacher
+        where teacher_id=#{teacherId}
+    </delete>
+    <update id="updateTeacher" parameterType="Teacher">
+        <if test="teacherId!=null">
+            update teacher
+            <set>
+                <if test="name!=null and name!=''">
+                    name=#{name},
+                </if>
+                <if test="gender!=null">
+                    gender=#{gender},
+                </if>
+                <if test="age!=null">
+                    age=#{age},
+                </if>
+            </set>
+            where teacher_id=#{teacherId}
+        </if>
+    </update>
+    <select id="selectTeachers" parameterType="Teacher" resultType="Teacher">
+        select
+        teacher_id,
+        name,
+        gender,
+        age,
+        create_time
+        from teacher
+        <where>
+            <if test="teacherId!=null">
+                and teacher_id=#{teacherId}
+            </if>
+            <if test="name!=null and name!=''">
+                and name like "%"#{name}"%"
+            </if>
+            <if test="gender!=null">
+                gender=#{gender}
+            </if>
+            <if test="age!=null">
+                age=#{age}
+            </if>
+        </where>
+    </select>
+</mapper>
